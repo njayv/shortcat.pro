@@ -27,7 +27,7 @@ class customBot(commands.Bot):
 bot = customBot(
     command_prefix=".", case_insensitive = True, help_command = None,
     intents=intents, owner_ids = set(owners), 
-    status=discord.Status.idle, activity=discord.Game(name="Bam! Shock Dodge")
+    status=discord.Status.idle, activity=discord.ActivityType.watching(name="Tutorials on how to shock dodge perfectly")
 )
 
 @bot.event
