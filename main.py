@@ -25,7 +25,7 @@ class customBot(commands.Bot):
 
 
 bot = customBot(
-    command_prefix=".", case_insensitive = True, help_command = None,
+    command_prefix="/", case_insensitive = True, help_command = None,
     intents=intents, owner_ids = set(owners), 
     status=discord.Status.idle, activity=discord.Activity(type=discord.ActivityType.watching, name="Bagging tutorials...")
 )
@@ -33,5 +33,9 @@ bot = customBot(
 @bot.event
 async def on_ready():
     print(f"Logged in as {bot.user} (ID: {bot.user.id})")
+
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        bot.load_extension(f'cogs.{filename[:-3]}')
 
 bot.run(os.getenv('discBot_token'))
