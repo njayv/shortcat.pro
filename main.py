@@ -10,7 +10,7 @@ intents |= discord.Intents.messages
 intents |= discord.Intents.message_content
 intents |= discord.Intents.members
 
-owners = []
+owners = [984833786560794624]
 
 class customBot(commands.Bot):
     def __init__(self, *args, **kwargs):
