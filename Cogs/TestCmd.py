@@ -14,8 +14,8 @@ class testcmd(commands.Cog):
     async def ping(self, ctx: ApplicationContext):
         await ctx.respond("Pong!")
     
-    @slash_command(name='choose')
-    async def choose(self, ctx: ApplicationContext, selection=Option(name='track', description='Name of the track you would like info about.', choices=['MKS', 'Other', 'Not Sure'])):
+    @slash_command(name='choose', description='Choose a track to view info about')
+    async def choose(self, ctx: ApplicationContext, selection=Option(name='track', description='Name of track. E.g. MKS (Mario Kart Stadium)', choices=['MKS', 'Other', 'Not Sure'])):
         await ctx.respond(f"You selected: {selection}")
 
 
