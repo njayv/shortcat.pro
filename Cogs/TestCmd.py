@@ -15,7 +15,7 @@ class testcmd(commands.Cog):
         await ctx.respond("Pong!")
     
     @slash_command(name='choose')
-    async def choose(self, ctx: ApplicationContext, selection=Option(name='uhh', description='Pick this one!', choices=['A', 'B', 'C'])):
+    async def choose(self, ctx: ApplicationContext, selection=Option(name='track', description='Name of the track you would like info about.', choices=['MKS', 'Other', 'Not Sure'])):
         await ctx.respond(f"You selected: {selection}")
 
 
