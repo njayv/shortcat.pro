@@ -13,8 +13,14 @@ class testcmd(commands.Cog):
     
     @slash_command(name='map_image_embed', description="Send and image of the track selected. (But it's an embed)")
     async def map_image(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Name of the track.', choices=['MKS', 'WP', 'SSC', 'TR'])):
-        embed_msg = discord.Embed(colour= discord.Color.from_rgb(114, 137, 218), title= str(map_selection))
-        embed_msg.set_image(url= f"https://raw.github.com/njayv/shortcat.pro/master/map_images/{map_selection}.webp")
+        embed_msg = discord.Embed(
+            colour= discord.Color.random(),
+            title= str(map_selection),
+            
+            )
+        
+        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro')
+        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/{map_selection}.webp")
         await ctx.respond(embed= embed_msg)
 
 

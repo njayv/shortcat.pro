@@ -1,10 +1,8 @@
-[
-    {
-        "track_name": "Mario Kart Stadium",
-        "track_abb": "MKS",
-        "track_cup": "Mushroom",
-        "track_type": "Bagger",
-        "best_pos": "Any",
-        "track_strat": "There are several great shortcuts and bullet spots. At the top level, this track is all about putting yourself in the best position possible with triple mushrooms at the end of lap 3 to take the motion glider shortcut."
+{
+    "MKS": {
+        "Track Name": "Mario Kart Stadium"
+    },
+    "WP": {
+        "Track Name": "Water Park"
     }
-]
+}
