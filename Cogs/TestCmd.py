@@ -6,13 +6,9 @@ class testcmd(commands.Cog):
 
     def init(self, bot):
         self.bot: commands.Bot = bot
-    
-    @slash_command(name= 'map_image', description= 'Send and image of the track selected.')
-    async def map_image(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Name of the track.', choices=['MKS', 'Not Implemented Yet'])):
-        await ctx.respond(file= discord.File(f'./map_images/{map_selection}.webp'))
-    
-    @slash_command(name='map_image_embed', description="Use the abbreviation of the track. E.g. TH = Toad Harbour")
-    async def map_image(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Name of the track.')):
+
+    @slash_command(name='track_strategy', description="Display the Track Strategy of a given track name.")
+    async def map_image(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Use Abbreviation Of Track!')):
         embed_msg = discord.Embed(
             colour= discord.Color.random(),
             title= str(map_selection),
@@ -21,6 +17,19 @@ class testcmd(commands.Cog):
         
         embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro')
         embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/{map_selection}.webp")
+
+        await ctx.respond(embed= embed_msg)
+
+    @slash_command(name='item_map', description="Display the Item Map of a given track name.")
+    async def map_image(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Use Abbreviation Of Track!')):
+        embed_msg = discord.Embed(
+            colour= discord.Color.random(),
+            title= str(map_selection),
+            
+            )
+        
+        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro')
+        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/item_dist/{map_selection}.webp")
 
         await ctx.respond(embed= embed_msg)
 
