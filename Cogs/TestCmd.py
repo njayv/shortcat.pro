@@ -37,7 +37,7 @@ class testcmd(commands.Cog):
             description= picked_strategy["description"]
             )
 
-        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro')
+        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro/favicon.png')
         embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{picked_strategy["cup"]}.png")
 
         await ctx.respond(embed= embed_msg)
