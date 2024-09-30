@@ -27,8 +27,8 @@ class testcmd(commands.Cog):
             strategies= json.load(f)
             picked_strategy= [entry for entry in strategies if entry["code"].lower() == map_selection.lower()]
             if len(picked_strategy) == 0:
-                return await ctx.respond("That's not a track! Try using the abbriviation of the track you'd like to see.\n-# For example: MKS = Mario Kart Stadium, rMMM = Moo Moo Meadows ('r' meaning Retro Cup), dBP = Baby Park ('d' meaning DLC), bKC ('b' meaning Booster Course)")
-            picked_strategy= picked_strategy[0]           
+                return await ctx.respond("That's not a track! Try using the abbriviation of the track you'd like to see.\n-# For example: MKS = Mario Kart Stadium, rMMM = Moo Moo Meadows (**r** meaning Retro Cup), dBP = Baby Park (**d** meaning DLC), bKC (**b** meaning Booster Course)")
+            picked_strategy= picked_strategy[0]
         
         embed_msg = discord.Embed(
             colour= discord.Color.from_rgb(*rgb_map.get(picked_strategy["color"], (0, 0, 0))),
@@ -41,21 +41,6 @@ class testcmd(commands.Cog):
         embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{picked_strategy["cup"]}.png")
 
         await ctx.respond(embed= embed_msg)
-
-    @slash_command(name='item_map', description="Display the Item Map of a given track name.")
-    async def item_map(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Use Abbreviation Of Track!')):
-
-        embed_msg = discord.Embed(
-            colour= discord.Color.random(),
-            title= str(map_selection),
-            description= "Test"
-            )
-        
-        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro')
-        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/item_dist_map/{str(map_selection).lower()}.webp")
-
-        await ctx.respond(embed= embed_msg)
-
 
 def setup(bot: commands.Bot):
     bot.add_cog(testcmd(bot))
