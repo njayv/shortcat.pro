@@ -84,10 +84,17 @@ class testcmd(commands.Cog):
         for entry in [entry for entry in strategies if entry["cup"] == cup_selection]:
             tracks += f"{entry['name']}: {entry['code']}\n"
         
+        embed_title = cup_selection[0].upper() + cup_selection[1:] + " Cup"
+        
         embed_msg= discord.Embed(
-            description= tracks
+            title= embed_title,
+            description= tracks,
+            thumbnail= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_icons/{cup_selection}.webp"
         )
         
+        embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro/favicon.png')
+        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{cup_selection}.png")
+
         await ctx.respond(embed= embed_msg)
 
 def setup(bot: commands.Bot):
