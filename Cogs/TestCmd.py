@@ -77,8 +77,6 @@ class testcmd(commands.Cog):
         with open("./track_jsons/strategy.json", "r+") as f:
             strategies= json.load(f)
 
-        abbreviations= []
-
         tracks= ""
 
         for entry in [entry for entry in strategies if entry["cup"] == cup_selection]:
