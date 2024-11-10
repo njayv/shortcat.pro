@@ -1,7 +1,9 @@
 import discord
 import json
+import random
 from discord import Option, ApplicationContext, slash_command
 from discord.ext import commands
+from discord.ui import Button, View
 
 rgb_map = {
     "red": (255, 0, 0),
@@ -43,13 +45,56 @@ cups = [
     'spiny'
 ]
 
+class PaginationView(discord.ui.View):
+    currentPage : int = 1
+    sep : int = 5
+
+    async def send(self, ctx):
+        self.message = await ctx.respond(view=self)
+        await self.updateMessage(self.data[:self.sep])
+    
+    def createEmbed(self, data):
+        embed = discord.Embed(title="Test")
+        for item in data:
+            embed.add_field(name=item, value=item, inline=False)
+        return embed
+    
+    async def updateMessage(self, data):
+        self.updateButtons
+        await self.message.edit(embed=self.createEmbed(data), view=self)
+    
+    def updateButtons(self):
+        if self.currentPage == int(len(self.data) / self.sep) + 1:
+            self.prev_button.disabled = True
+            self.next_button.disabled = False
+        else:
+            self.prev_button.disabled = False
+            self.next_button.disabled = True
+        
+    
+    @discord.ui.button(label="<", style=discord.ButtonStyle.primary)
+    async def prev_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.response.defer()
+        self.currentPage -= 1
+        until_item = self.currentPage * self.sep
+        from_item = until_item - self.sep
+        await self.updateMessage(self.data[from_item:until_item])
+
+    @discord.ui.button(label=">", style=discord.ButtonStyle.primary)
+    async def next_button(self, button: discord.ui.Button, interaction: discord.Interaction):
+        await interaction.response.defer()
+        self.currentPage += 1
+        until_item = self.currentPage * self.sep
+        from_item = until_item - self.sep
+        await self.updateMessage(self.data[from_item:until_item])
+
 class testcmd(commands.Cog):
 
     def init(self, bot):
         self.bot: commands.Bot = bot
 
     @slash_command(name='track_strategy', description="Display the Track Strategy of a given track name.")
-    async def track_strat(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Use Abbreviation Of Track!')):
+    async def track_strat(self, ctx: ApplicationContext, map_selection=Option(name='track_name', description='Use Abbreviation of track!')):
 
         with open("./track_jsons/strategy.json", "r+") as f:
             strategies= json.load(f)
@@ -94,6 +139,22 @@ class testcmd(commands.Cog):
         embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{cup_selection}.png")
 
         await ctx.respond(embed= embed_msg)
+
+    @slash_command(name= "bullet_spots", description= "!!!BROKEN!!! Shows the best positions to use the Bullet Bill.")
+    async def bullet_spots(self, ctx: ApplicationContext, track_selection=Option(name='track_name', description='Use Abbreviation of track!')):
+
+        with open('./track_jsons/strategy.json', "r+") as f:
+            strategies= json.load(f)
+            picked_track= [entry for entry in strategies if entry["code"].lower() == track_selection.lower()]
+            if len(picked_track) == 0:
+                return await ctx.respond("That's not a track! Try using the abbriviation of the track you'd like to see. Try using '/tracks' to see a list of tracks\n-# For example: MKS = Mario Kart Stadium, rMMM = Moo Moo Meadows (**r** meaning Retro Cup), dBP = Baby Park (**d** meaning DLC), bKC (**b** meaning Booster Course)")
+            picked_track= picked_track[0]
+
+        data = range(1, 15)
+        pagination_view = PaginationView()
+        pagination_view.data = data
+
+        await pagination_view.respond(ctx)
 
 def setup(bot: commands.Bot):
     bot.add_cog(testcmd(bot))
