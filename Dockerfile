@@ -1,7 +1,5 @@
 FROM python:3.10-slim
 
-RUN apt-get update && apt-get intsall -y git
-
 WORKDIR /app
 
 COPY requirements.txt /app
