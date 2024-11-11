@@ -112,7 +112,7 @@ class testcmd(commands.Cog):
         embed_msg.add_field(name= "Track Type:", value= picked_strategy["type"], inline= True)
         embed_msg.add_field(name= "Best Placement:", value= picked_strategy["bestPlacement"], inline= True)
         embed_msg.set_footer(text= "Images and descriptions taken from the 'shortcat.pro' website.", icon_url= 'https://shortcat.pro/favicon.png')
-        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{picked_strategy["cup"]}.png")
+        embed_msg.set_image(url= f"https://raw.githubusercontent.com/njayv/shortcat.pro/master/map_images/cup_location/{picked_strategy['cup']}.png")
 
         await ctx.respond(embed= embed_msg)
     
